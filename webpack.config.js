@@ -1,11 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js'
+    },
+    devServer: {
+        hot: true
     },
     module: {
         rules: [{
@@ -18,9 +22,9 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         esModule: false,
-                        outputPath:'img'
+                        outputPath: 'img'
                     },
-                    
+
                 }]
             },
             {
@@ -37,8 +41,10 @@ module.exports = {
                 hash: true
             }
 
-        )
+        ),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 
-    
+
 }
