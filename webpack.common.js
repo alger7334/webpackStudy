@@ -1,16 +1,12 @@
 const path = require('path');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+
 module.exports = {
-    mode: 'production',
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js'
+    entry: {
+        app: './src/index.js'
     },
-    devServer: {
-        hot: true
-    },
+
     module: {
         rules: [{
                 test: /\.css$/,
@@ -34,6 +30,8 @@ module.exports = {
         ]
     },
     plugins: [
+      
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
                 title: 'webpack 文档学习',
                 filename: 'index.html',
@@ -42,9 +40,10 @@ module.exports = {
             }
 
         ),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ]
-
-
-}
+    ],
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    }
+};
+//打包的公用文件
