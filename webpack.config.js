@@ -1,12 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
-    mode: 'production',
-    entry: './src/index.js',
+    mode: 'development',
+    entry: {
+        main: './src/index.js',
+        home: './src/home.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js'
+        filename: '[name].js'
     },
     devServer: {
         hot: true
@@ -34,6 +38,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
                 title: 'webpack 文档学习',
                 filename: 'index.html',
